@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "qw346PE38WM=",
+  "success": true,
+  "projectFilePath": "D:\\UCB\\SEMESTRE 2_2025\\TEC WEB I\\3ER ELEMENTO\\BaseDeDATOS\\DBRepository-Group2\\DBRepository-Group2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.9\\microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
+    "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
