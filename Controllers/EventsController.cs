@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DBRepository_Group2.Models.Dtos;
+using DBRepository_Group2.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 
 namespace DBRepository_Group2.Controllers
@@ -20,29 +22,34 @@ namespace DBRepository_Group2.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public IActionResult GetOne(Guid id)
+        public async Task<IActionResult> GetOne(Guid id)
         {
-            var event = _service.GetById(id);
-            return event == null
+            var ev = await _service.GetById(id);
+            return ev == null
                 ? NotFound(new { error = "Event not found", status = 404 })
-                : Ok(event);
+                : Ok(ev);
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateEventDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateEventDto dto)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
-            var event = _service.Create(dto);
-            return CreatedAtAction(nameof(GetOne), new { id = event.Id }, event);
+            var ev = await _service.Create(dto);
+            return CreatedAtAction(nameof(GetOne), new { id = ev.Id }, ev);
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult Update(Guid id){ }
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateEventDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+            if (dto == null) return NotFound();
+            else return Ok(await _service.Update(dto));
+        }
 
         [HttpDelete("{id:guid}")]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var success = _service.Delete(id);
+            var success = await _service.Delete(id);
             return success
                 ? NoContent()
                 : NotFound(new { error = "Event not found", status = 404 });

@@ -1,5 +1,7 @@
 ﻿using DBRepository_Group2.Models;
 using DBRepository_Group2.Models.Dtos;
+using DBRepository_Group2.Repositories;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace DBRepository_Group2.Services
 {
@@ -12,37 +14,46 @@ namespace DBRepository_Group2.Services
         }
         public Event Create(CreateEventDto dto)
         {
-            var event = new Event
-            {
+            var ev = new Event(){
                 Id = Guid.NewGuid(),
                 Title = dto.Title.Trim(),
                 Date=DateTime.Now,
                 Capacity = dto.Capacity
             };
-            _repo.Add(event);
-            return event;
+            _repo.Add(ev);
+            return ev;
         }
-        public Event Update(UpdateEventDto dto)
+        public async Task<Event> Update(UpdateEventDto dto, Guid id)
         {
-
+            var existing = _repo.GetById(id);
+            if (existing == null) return null;
+            var updated = new Event()
+            {
+                Id = id,
+                Title = dto.Title.Trim(),
+                Date = dto.Date,
+                Capacity = dto.Capacity
+            };
+            await _repo.Update(updated, id);
+            return updated;
         }
-        public bool Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
             var existing = _repo.GetById(id);
             if (existing == null) return false;
-            _repo.Delete(id);
+            await _repo.Delete(id);
             return true;
         }
 
-        public IEnumerable<Event> GetAll()
+        public async Task<IEnumerable<Event>> GetAll()
         {
-            return _repo.GetAll();
+            return await _repo.GetAll();
         }
 
         public Event? GetById(Guid id)
         {
-            var event = _repo.GetById(id);
-            return event;
+            var ev = _repo.GetById(id);
+            return await ev;
         }
     }
 }
