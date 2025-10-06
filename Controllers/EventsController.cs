@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DBRepository_Group2.Controllers
 {
@@ -34,6 +35,9 @@ namespace DBRepository_Group2.Controllers
             var event = _service.Create(dto);
             return CreatedAtAction(nameof(GetOne), new { id = event.Id }, event);
         }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult Update(Guid id){ }
 
         [HttpDelete("{id:guid}")]
         public IActionResult Delete(Guid id)

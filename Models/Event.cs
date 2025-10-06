@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace DBRepository_Group2
+namespace DBRepository_Group2.Models
 {
         public class Event
         {
