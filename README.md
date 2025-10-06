@@ -1,7 +1,8 @@
 # DBRepository-Group2
 Group Members:
 
-Member 1: 
+Member 1: Juan Mateo
+
 Member 2: Ariana Aylen Pita Vargas
 
 | Method | Endpoint         | Description          |
