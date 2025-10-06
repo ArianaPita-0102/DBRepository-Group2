@@ -1,20 +1,21 @@
 services:
   db:
     image: postgres:16
-    container_name: books_pg
+    container_name: events_pg
     restart: unless-stopped
     environment:
-      POSTGRES_DB: booksdb
-      POSTGRES_USER: booksuser
+      POSTGRES_DB: eventsdb
+      POSTGRES_USER: eventsuser
       POSTGRES_PASSWORD: supersecret
     ports:
       - "5432:5432"
     volumes:
-      - books_data:/var/lib/postgresql/data
+      - events_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U booksuser -d booksdb"]
+      test: ["CMD-SHELL", "pg_isready -U eventsuser -d eventsdb"]
       interval: 5s
       timeout: 3s
       retries: 10
+
 volumes:
-    books_data:
+  events_data:
