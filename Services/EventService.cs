@@ -50,7 +50,7 @@ namespace DBRepository_Group2.Services
             return await _repo.GetAll();
         }
 
-        public Event? GetById(Guid id)
+        public async Task<Event?> GetById(Guid id)
         {
             var ev = _repo.GetById(id);
             return await ev;
